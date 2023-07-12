@@ -2,6 +2,7 @@ import Head from "next/head";
 import Layout from "../../../components/Layout";
 import Date from "../../../components/Date";
 import utilStyles from "../../../styles/utils.module.scss";
+import { getPost, getPostIds } from "../../../util/posts";
 
 export default function SinglePost({ post }) {
   return (
@@ -21,12 +22,10 @@ export default function SinglePost({ post }) {
   );
 }
 
-export async function getStaticPaths() {
-  const result = await fetch("http://localhost:3000/api/get-post-ids");
-  const ids = await result.json();
-
+export async function getStaticPaths(context) {
+  const ids = await getPostIds();
   return {
-    paths: ids.data.map(({ _id }) => {
+    paths: ids.map(({ _id }) => {
       return { params: { postid: _id.toString() } };
     }),
     fallback: false,
@@ -35,12 +34,16 @@ export async function getStaticPaths() {
 
 export async function getStaticProps(context) {
   const id = context.params.postid; //Get post id
-  const result = await fetch("http://localhost:3000/api/get-post?postid=" + id);
-  const post = await result.json();
 
+  const post = await getPost(id);
   return {
     props: {
-      post: post.data,
+      post: {
+        _id: post._id.toString(),
+        title: post.title,
+        date: post.date,
+        post: post.post,
+      },
     },
   };
 }

@@ -3,6 +3,7 @@ import Layout, { siteTitle } from "../components/Layout";
 import utilStyles from "../styles/utils.module.scss";
 import Link from "next/link";
 import Date from "../components/Date";
+import { getPosts } from "../util/posts";
 
 export default function Home({ posts }) {
   return (
@@ -32,17 +33,13 @@ export default function Home({ posts }) {
 }
 
 export async function getStaticProps() {
-  const result = await fetch("http://localhost:3000/api/get-posts", {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-    },
-  });
-  const posts = await result.json();
-
+  const posts = await getPosts();
   return {
+    revalidate: 60,
     props: {
-      posts: posts.data,
+      posts: posts.map(({ _id, title, date, post }) => {
+        return { _id: _id.toString(), title: title, date: date, post: post };
+      }),
     },
   };
 }
