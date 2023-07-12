@@ -2,6 +2,7 @@ import Head from "next/head";
 import Layout from "../../components/Layout";
 import NewPostForm from "../../components/NewPostForm";
 import { useState } from "react";
+import revalidatePath from "../../util/revalidate";
 
 export default function NewPost() {
   const [name, setName] = useState("");
@@ -12,6 +13,8 @@ export default function NewPost() {
 
   async function submitPost(data) {
     setLoading(true);
+    //to call the api dynamocally regardless of local or live environment
+    data['host'] = location.protocol + '//' + location.host; 
 
     const result = await fetch("/api/submit-post", {
       method: "POST",
@@ -27,7 +30,7 @@ export default function NewPost() {
     setName("");
     setDate("");
     setPost("");
-  
+
   }
 
   return (
