@@ -4,7 +4,7 @@ import { MongoClient } from "mongodb";
 export default async function handler(req, res) {
   if (req.method === "GET") {
     const client = await MongoClient.connect(
-      "mongodb+srv://ika0501:oRLoQkhB86oonMML@cluster0.vedjmun.mongodb.net/blog-posts?retryWrites=true&w=majority"
+      "mongodb+srv://"+ process.env.DB_USER +":"+ process.env.DB_PASS +"@cluster0.vedjmun.mongodb.net/blog-posts?retryWrites=true&w=majority"
     );
 
     const db = client.db();
