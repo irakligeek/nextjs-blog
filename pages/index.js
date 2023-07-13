@@ -35,6 +35,7 @@ export default function Home({ posts }) {
 export async function getStaticProps() {
   const posts = await getPosts();
   return {
+    revalidate: 60,
     props: {
       posts: posts.map(({ _id, title, date, post }) => {
         return { _id: _id.toString(), title: title, date: date, post: post };

@@ -28,7 +28,7 @@ export async function getStaticPaths(context) {
     paths: ids.map(({ _id }) => {
       return { params: { postid: _id.toString() } };
     }),
-    fallback: false,
+    fallback: "blocking",
   };
 }
 
@@ -37,6 +37,7 @@ export async function getStaticProps(context) {
 
   const post = await getPost(id);
   return {
+    revalidate: 60,
     props: {
       post: {
         _id: post._id.toString(),

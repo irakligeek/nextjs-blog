@@ -1,7 +1,5 @@
 // POST /api/submit-post
-
 import { MongoClient, ObjectId } from "mongodb";
-import revalidatePath from "../../util/revalidate";
 
 export default async function handler(req, res) {
   if (req.method === "POST") {
@@ -19,25 +17,25 @@ export default async function handler(req, res) {
 
     const collection = db.collection("posts");
     const result = await collection.insertOne(data);
-    const insertedId = result.insertedId.toString();
+    //const insertedId = result.insertedId.toString();
 
     client.close();
 
     //Revalidate home page and blog post page
-    const revalidateHp = await revalidatePath({
-      host: req.body.host,
-      path: "/",
-    });
+    // const revalidateHp = await revalidatePath({
+    //   host: req.body.host,
+    //   path: "/",
+    // });
   
-    //@todo this doesn't work ...
-    try{
-      const revalidatePost = await revalidatePath({
-        host: req.body.host,
-        path: "/posts/"+insertedId,
-      });
-    } catch (err ) {
-        console.log("error occured: ", err);
-    }
+    // //@todo this doesn't work ...
+    // try{
+    //   const revalidatePost = await revalidatePath({
+    //     host: req.body.host,
+    //     path: "/posts/"+insertedId,
+    //   });
+    // } catch (err ) {
+    //     console.log("error occured: ", err);
+    // }
   
 
     res.status(201).json({ message: "Success! Post added.", status: 200 });
