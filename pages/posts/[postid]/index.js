@@ -16,7 +16,7 @@ export default function SinglePost({ post }) {
           <Date dateString={post.date}></Date>
         </div>
         <p></p>
-        <div>{post.post}</div>
+        <div dangerouslySetInnerHTML={{__html: post.post}}></div>
       </Layout>
     </>
   );
