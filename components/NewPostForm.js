@@ -1,11 +1,12 @@
-import { useRef } from "react";
 import Layout from "./Layout";
 import styles from "./newPostForm.module.scss";
+import { useRef} from "react";
+import RichEditor from "../components/Editor";
 
 function NewPostForm(props) {
-  
+
+  const editorRef = useRef(null);
   const titleInputRef = useRef();
-  const postInputRef = useRef();
   const dateInputRef = useRef();
 
   const isLoading = props.isLoading;
@@ -15,7 +16,7 @@ function NewPostForm(props) {
 
     const enteredTitle = titleInputRef.current.value;
     const enteredDate = dateInputRef.current.value;
-    const enteredPost = postInputRef.current.value;
+    const enteredPost = editorRef.current.getContent();
 
     const postData = {
       title: enteredTitle,
@@ -51,13 +52,14 @@ function NewPostForm(props) {
 
       <div className={styles.control}>
         <label htmlFor="post-body">Post</label>
-        <textarea
+        <RichEditor id="post-body" editorRef={editorRef} />
+        {/* <textarea
           value={props.formData.post}
           id="post-body"
           rows="5"
           ref={postInputRef}
           onChange={(e) => props.setPost(e.target.value)}
-        ></textarea>
+        ></textarea> */}
       </div>
       <div className={styles.actions}>
         <button>{isLoading ? "Adding ..." : "Add New Post"}</button>

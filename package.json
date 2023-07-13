@@ -6,6 +6,7 @@
     "start": "next start"
   },
   "dependencies": {
+    "@tinymce/tinymce-react": "^4.3.0",
     "date-fns": "^2.30.0",
     "dns": "^0.2.2",
     "mongodb": "^5.7.0",

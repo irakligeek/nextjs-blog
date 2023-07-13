@@ -4,13 +4,23 @@ import utilStyles from "../styles/utils.module.scss";
 import Link from "next/link";
 import Date from "../components/Date";
 import { getPosts } from "../util/posts";
+import { useRef } from "react";
 
 export default function Home({ posts }) {
+
+  const editorRef = useRef(null);
+  const log = () => {
+    if (editorRef.current) {
+      console.log(editorRef.current.getContent()); //Get editor content
+    }
+  };
+
   return (
     <Layout home>
       <Head>
         <title>{siteTitle}</title>
       </Head>
+
       <section className={utilStyles.headingMd}>
         <p>
           Hey, this is Irakli, and I love web dev and currently learning Next JS

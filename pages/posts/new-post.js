@@ -12,6 +12,8 @@ export default function NewPost() {
   const [loading, setLoading] = useState(false);
 
   async function submitPost(data) {
+    //console.log(data);
+    
     setLoading(true);
     //to call the api dynamocally regardless of local or live environment
     data['host'] = location.protocol + '//' + location.host; 
