@@ -23,8 +23,10 @@ export default function Home({ posts }) {
 
       <section className={utilStyles.headingMd}>
         <p>
-          Hey, this is Irakli, and I love web dev and currently learning Next JS
-          and React
+          Hey, this is Irakli, and this is a simplest blog I build in React. It's very basic, 
+          but I am planning to adding more features such as authentification, images to blog posts, etc.
+          Github repo for this project can be 
+          found <a href="https://github.com/irakligeek/nextjs-blog" target="_blank">here</a>
         </p>
 
         <h2 className={utilStyles.headingLg}>Blog Posts</h2>
