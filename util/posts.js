@@ -6,9 +6,14 @@ export async function getPosts() {
   const db = client.db();
   const collection = db.collection("posts");
   const posts = await collection.find().toArray();
+
+  const postsSorted = posts.sort(function(a,b){
+    return new Date(b.date) - new Date(a.date);
+  });
+
   client.close();
 
-  return posts;
+  return postsSorted;
 }
 
 export async function getPost(id) {
